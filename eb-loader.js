@@ -1,8 +1,8 @@
 // eb-loader.js - Versión con detección de entorno
 (function() {
     // Configuración
-    const PROD_ENDPOINT = "https://tudominio.com/eb-proxy.php";
-    const DEV_ENDPOINT = "https://tudominio.com/eb-proxy.php?dev_mode=1"; // Alternativa
+    const PROD_ENDPOINT = "https://tiendacarre.com/eb-carousel/eb-proxy.php";
+    const DEV_ENDPOINT = "https://tiendacarre.com/eb-carousel/eb-proxy.php?dev_mode=1"; // Alternativa
     
     const script = document.currentScript;
     const clientId = script.getAttribute('data-client-id');
