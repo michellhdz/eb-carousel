@@ -39,7 +39,7 @@
                 throw new Error(data.error || 'Error en la respuesta del servidor');
             }
             
-            renderProperties(data.properties);
+            renderCarousel(data);
             
         } catch (error) {
             showError(error.message);
@@ -47,8 +47,8 @@
         }
     }
     
-    function renderProperties(properties) {
-        if (!properties || properties.length === 0) {
+    function renderCarousel(data) {
+        if (!data.properties || data.properties.length === 0) {
             container.innerHTML = `
                 <div class="eb-empty">
                     No hay propiedades disponibles
@@ -60,32 +60,15 @@
         
         container.innerHTML = `
             <div class="eb-carousel">
-                ${properties.map(prop => `
+                ${data.properties.map(prop => `
                     <a href="${prop.url}" target="_blank" class="eb-property">
                         <div class="eb-image-container">
                             ${prop.image ? 
-                                `<img src="${prop.image}" alt="${prop.title}" loading="lazy">` : 
+                                `<img src="${prop.image}" alt="${prop.title}" loading="lazy" class="eb-image">` : 
                                 '<div class="eb-no-image">Sin imagen</div>'
                             }
                         </div>
                         <div class="eb-details">
                             <h3 class="eb-title">${prop.title}</h3>
                             <div class="eb-price">${prop.price}</div>
-                            ${prop.size ? `<div class="eb-size">${prop.size} m²</div>` : ''}
-                        </div>
-                    </a>
-                `).join('')}
-            </div>
-        `;
-    }
-    
-    function showError(message) {
-        container.innerHTML = `
-            <div class="eb-error">
-                <div class="eb-error-icon">⚠️</div>
-                <div>${message}</div>
-                <button class="eb-retry" onclick="fetchData()">Reintentar</button>
-            </div>
-        `;
-    }
-})();
+                            ${prop.size ? `<div class="eb-size">
