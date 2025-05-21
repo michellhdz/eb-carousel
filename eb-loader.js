@@ -1,10 +1,12 @@
 (function() {
     const script = document.currentScript;
-    const clientId = script.getAttribute('data-client-id') || 'DEMO';
-    const limit = script.getAttribute('data-limit') || 5;
-    const env = script.getAttribute('data-env') || 'staging';
-    const customFilters = script.getAttribute('data-filters') || '';
-    const endpoint = "https://tudominio.com/eb-carousel/eb-proxy.php";
+    const config = {
+        clientId: script.getAttribute('data-client-id') || 'DEMO',
+        limit: script.getAttribute('data-limit') || 5,
+        env: script.getAttribute('data-env') || 'staging',
+        filters: script.getAttribute('data-filters') || '',
+        endpoint: "https://tudominio.com/eb-carousel/eb-proxy.php"
+    };
     
     const container = document.createElement('div');
     container.className = 'eb-container';
@@ -25,8 +27,12 @@
     document.head.appendChild(cssLink);
     
     // Obtener datos
-    fetch(`${endpoint}?client_id=${clientId}&limit=${limit}&environment=${env}&filters=${encodeURIComponent(customFilters)}`)
-        .then(async response => {
+    fetchData();
+    
+    async function fetchData() {
+        try {
+            const url = `${config.endpoint}?client_id=${config.clientId}&limit=${config.limit}&environment=${config.env}&filters=${encodeURIComponent(config.filters)}`;
+            const response = await fetch(url);
             const data = await response.json();
             
             if (!data.success) {
@@ -34,15 +40,21 @@
             }
             
             renderProperties(data.properties);
-        })
-        .catch(error => {
+            
+        } catch (error) {
             showError(error.message);
             console.error('Error:', error);
-        });
+        }
+    }
     
     function renderProperties(properties) {
         if (!properties || properties.length === 0) {
-            container.innerHTML = '<div class="eb-empty">No hay propiedades disponibles</div>';
+            container.innerHTML = `
+                <div class="eb-empty">
+                    No hay propiedades disponibles
+                    <small>Client ID: ${config.clientId}</small>
+                </div>
+            `;
             return;
         }
         
@@ -72,7 +84,7 @@
             <div class="eb-error">
                 <div class="eb-error-icon">⚠️</div>
                 <div>${message}</div>
-                <button class="eb-retry" onclick="window.location.reload()">Reintentar</button>
+                <button class="eb-retry" onclick="fetchData()">Reintentar</button>
             </div>
         `;
     }
