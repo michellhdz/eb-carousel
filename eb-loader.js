@@ -23,7 +23,7 @@
     // Cargar CSS
     const cssLink = document.createElement('link');
     cssLink.rel = 'stylesheet';
-    cssLink.href = 'https://tudominio.com/eb-carousel/eb-carousel.min.css';
+    cssLink.href = 'https://michellhdz.github.io/eb-carousel/eb-carousel.min.css';
     document.head.appendChild(cssLink);
     
     // Obtener datos
