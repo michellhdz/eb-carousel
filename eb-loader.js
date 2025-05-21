@@ -5,7 +5,7 @@
         limit: script.getAttribute('data-limit') || 5,
         env: script.getAttribute('data-env') || 'staging',
         filters: script.getAttribute('data-filters') || '',
-        endpoint: "https://tiendacarre.com/eb-carousel/eb-proxy.php"
+        endpoint: "https://tudominio.com/eb-carousel/eb-proxy.php"
     };
     
     const container = document.createElement('div');
@@ -23,7 +23,7 @@
     // Cargar CSS
     const cssLink = document.createElement('link');
     cssLink.rel = 'stylesheet';
-    cssLink.href = 'https://michellhdz.github.io/eb-carousel/eb-carousel.min.css';
+    cssLink.href = 'https://tudominio.com/eb-carousel/eb-carousel.min.css';
     document.head.appendChild(cssLink);
     
     // Obtener datos
@@ -71,4 +71,28 @@
                         <div class="eb-details">
                             <h3 class="eb-title">${prop.title}</h3>
                             <div class="eb-price">${prop.price}</div>
-                            ${prop.size ? `<div class="eb-size">
+                            ${prop.size ? `<div class="eb-size">${prop.size} m²</div>` : ''}
+                        </div>
+                    </a>
+                `).join('')}
+            </div>
+            ${data.all_properties_url ? `
+                <div class="eb-view-all">
+                    <a href="${data.all_properties_url}" class="eb-view-all-button" target="_blank">
+                        Ver todas las propiedades
+                    </a>
+                </div>
+            ` : ''}
+        `;
+    }
+    
+    function showError(message) {
+        container.innerHTML = `
+            <div class="eb-error">
+                <div class="eb-error-icon">⚠️</div>
+                <div>${message}</div>
+                <button class="eb-retry" onclick="fetchData()">Reintentar</button>
+            </div>
+        `;
+    }
+})();
