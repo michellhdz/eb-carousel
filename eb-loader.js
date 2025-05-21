@@ -5,7 +5,7 @@
         limit: script.getAttribute('data-limit') || 5,
         env: script.getAttribute('data-env') || 'staging',
         filters: script.getAttribute('data-filters') || '',
-        endpoint: "https://tudominio.com/eb-carousel/eb-proxy.php"
+        endpoint: "https://tiendacarre.com/eb-carousel/eb-proxy.php"
     };
     
     const container = document.createElement('div');
@@ -23,7 +23,7 @@
     // Cargar CSS
     const cssLink = document.createElement('link');
     cssLink.rel = 'stylesheet';
-    cssLink.href = 'https://tudominio.com/eb-carousel/eb-carousel.min.css';
+    cssLink.href = 'https://michellhdz.github.io/eb-carousel/eb-carousel.min.css';
     document.head.appendChild(cssLink);
     
     // Obtener datos
